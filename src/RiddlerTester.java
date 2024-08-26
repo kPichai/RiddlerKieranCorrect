@@ -9,19 +9,22 @@ public class RiddlerTester {
     @Test
     public void testOne() {
         setTestData("1");
-        solver.decryptOne(encrypted);
+        String s = solver.decryptOne(encrypted);
+        System.out.println(s);
     }
 
     @Test
     public void testTwo() {
         setTestData("2");
-        solver.decryptTwo(encrypted);
+        String s = solver.decryptTwo(encrypted);
+        System.out.println(s);
     }
 
     @Test
     public void testThree() {
         setTestData("3");
-        solver.decryptThree(encrypted);
+        String s = solver.decryptThree(encrypted);
+        System.out.println(s);
     }
 
     @Test
