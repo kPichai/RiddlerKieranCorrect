@@ -30,7 +30,8 @@ public class RiddlerTester {
     @Test
     public void testFour() {
         setTestData("4");
-        solver.decryptFour(encrypted);
+        String s = solver.decryptFour(encrypted);
+        System.out.println(s);
     }
 
     private void setTestData(String text) {

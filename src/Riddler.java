@@ -8,6 +8,12 @@
  */
 public class Riddler {
 
+    final int ALPHABET_LENGTH = 26;
+    final int PROBLEM_ONE_SHIFT = 9;
+    final int ASCII_TO_ZERO_SHIFT = 48;
+    final int PROBLEM_THREE_BYTE_SIZE = 8;
+    final int PROBLEM_FOUR_SHIFT = 9919;
+
     // Method that determines the shift of the character if it's alphabetic, accounts for wrapping
     public int determineShift(char x) {
         char shifting_base;
@@ -24,7 +30,7 @@ public class Riddler {
         }
 
         // Calculates the shift and also accounts for a wrap around by using modulus
-        int shifted = (x - shifting_base + 9) % 26;
+        int shifted = (x - shifting_base + PROBLEM_ONE_SHIFT) % ALPHABET_LENGTH;
 
         // Returns the final ASCII value of the shifted char
         return shifting_base + shifted;
@@ -80,14 +86,14 @@ public class Riddler {
             if (Character.isDigit(encrypted.charAt(i+1))) {
 
                 // If there is then it subtracts 48 (which is the shift from 0 to the ASCII value of 0)
-                cur_ascii += (int)encrypted.charAt(i) - 48;
+                cur_ascii += (int)encrypted.charAt(i) - ASCII_TO_ZERO_SHIFT;
 
                 // Also multiplies by 10 to add a 0 to the end so when the next int is added it forms a multi-digit num
                 cur_ascii *= 10;
             } else {
 
                 // Adds the final digit in the case that the next char is a space
-                cur_ascii += (int)encrypted.charAt(i) - 48;
+                cur_ascii += (int)encrypted.charAt(i) - ASCII_TO_ZERO_SHIFT;
             }
         }
 
@@ -100,10 +106,10 @@ public class Riddler {
         String decrypted = "";
 
         // Loops through the encrypted string in sets of 8 (bytes)
-        for (int i = 0; i  < encrypted.length(); i += 8) {
+        for (int i = 0; i  < encrypted.length(); i += PROBLEM_THREE_BYTE_SIZE) {
 
             // Gets a sub string which contains a set of 8 0's and 1's
-            String sub = encrypted.substring(i, i + 8);
+            String sub = encrypted.substring(i, i + PROBLEM_THREE_BYTE_SIZE);
 
             // Converts the sub string to an Integer in base 10 from base 2 via parseInt
             // Also appends this ASCII char to the decrypted string
@@ -114,11 +120,19 @@ public class Riddler {
         return decrypted;
     }
 
+    // Method that decodes the 4th problem, converts each emoji to an int, shifts it, then casts it back to char
     public String decryptFour(String encrypted) {
         String decrypted = "";
 
-        // TODO: Complete the decryptFour() function.
+        // Loops through the encrypted string char by char
+        for (int i = 0; i < encrypted.length(); i++) {
 
+            // Casts current char to an int, shifts that int, casts back to a char, appends it to decrypted.
+            // Found the shift amount by comparing the smallest int value to a space
+            decrypted += (char)((int)encrypted.charAt(i) - PROBLEM_FOUR_SHIFT);
+        }
+
+        // Returns the final decrypted string
         return decrypted;
     }
 }
